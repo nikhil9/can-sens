@@ -1,0 +1,15 @@
+language: cpp
+sudo: false
+addons:
+  apt:
+    packages:
+    - gcc-4.9
+    - g++-4.9
+notifications:
+  slack:
+compiler:
+- gcc
+matrix:
+  include:
+  - compiler: gcc
+    env: CI_BUILD_TARGET="make"
