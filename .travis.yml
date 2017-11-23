@@ -2,6 +2,7 @@ language: cpp
 sudo: false
 before_install:
 - mkdir -p $HOME/toolchain
+- pushd $HOME
 - wget http://firmware.ardupilot.org/Tools/PX4-tools/gcc-arm-none-eabi-4_9-2015q3-20150921-linux.tar.bz2
 - tar -xf gcc-arm-none-eabi-4_9-2015q3-20150921-linux.tar.bz2 -C toolchain
 - export PATH=$HOME/toolchain/gcc-arm-none-eabi-4_9-2015q3/bin
