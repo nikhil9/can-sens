@@ -1,18 +1,12 @@
 language: cpp
 sudo: false
-addons:
-  apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    packages:
-    - gcc-4.9
-    - g++-4.9
+before_install:
+- mkdir -p $HOME/toolchain
+- wget http://firmware.ardupilot.org/Tools/PX4-tools/gcc-arm-none-eabi-4_9-2015q3-20150921-linux.tar.bz2
+- tar -xf gcc-arm-none-eabi-4_9-2015q3-20150921-linux.tar.bz2 -C toolchain
+- export PATH=$HOME/toolchain/gcc-arm-none-eabi-4_9-2015q3/bin
+install: make
+script: make
 notifications:
   slack:
     secure: APJah1j3vZbJjTszBeh9Zhp/nMdOsNqvMplTGBNoZDi3tDClYqomziPOwL19BSV56skXQJHu8h01U4MOrD1Ej1alBskItxspwBbKC9CYo6eNf2t33+xUHXX0J1va36uEz06t1Nyf2S9d518ceJ624gi+uE8sk4HboeRNot0eW0nXqwJodIJG4ONKCcLz8gmfuaE2iI8FP6o10FtQOSA3CaOPB9APtTAm3N9Tk7iyg7L7dAKaapuGW1sGYKHEGUyiIQqsDc6LvppE15fWdFzZD7UsRDyMmvbDuyaExWDAvvW56AULM/IK/Kcn60s4aJHfLSzrBczgOVp9ULYXnyUjuu5EuLtkafEH4dzsOV4BXk1gtwJVghp/RtchHz3OjTb1ATLZBxk+NCmDF18CtpocRONmxsg/VPhd7p806Yy2JbtZFJrG797wTA2k6XHUeBXGcfrAiV8eJ5xf0DhYepEHTtJY5JPZIfXlw2YMpMcZFAH3yFpzlBISTVYSRC/tq3h/Jol6UKc7XJXwwlFrwPdHfwJOorM7hfDaemS+l/k/qawcw2I5MwzmHCglQZgSn+85ZFe6uosb1HGRPfKCecmmnNK4npdO+Pw8qvyzmseNs9lNqKssgZOUc6kae/Jp/oIZ9+Fm2x+x5d+FG1oHOqr7urR5kU9nHho0dSt2UMU/nuA=
-compiler:
-- gcc
-matrix:
-  include:
-  - compiler: gcc
-    env: CI_BUILD_TARGET="make"
