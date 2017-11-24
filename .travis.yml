@@ -5,11 +5,15 @@ before_install:
 - mkdir toolchain
 - wget http://firmware.ardupilot.org/Tools/PX4-tools/gcc-arm-none-eabi-4_9-2015q3-20150921-linux.tar.bz2
 - tar -xf gcc-arm-none-eabi-4_9-2015q3-20150921-linux.tar.bz2 -C toolchain
+- cd toolchain/gcc-arm-none-eabi-4_9-2015q3/bin
+- ls
+- ln -s ~/toolchain/gcc-arm-none-eabi-4_9-2015q3/bin/arm-none-eabi-gcc $TRAVIS_BUILD_DIR
 env:
   global:
     - PATH=$PATH:~/toolchain/gcc-arm-none-eabi-4_9-2015q3/bin
 script: 
 - cd $TRAVIS_BUILD_DIR
+- ls
 - which arm-none-eabi-gcc
 - arm-none-eabi-gcc --version
 - make
