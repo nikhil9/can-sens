@@ -6,8 +6,7 @@ before_install:
 - wget http://firmware.ardupilot.org/Tools/PX4-tools/gcc-arm-none-eabi-4_9-2015q3-20150921-linux.tar.bz2
 - tar -xf gcc-arm-none-eabi-4_9-2015q3-20150921-linux.tar.bz2 -C toolchain
 - export PATH=$PATH:$HOME/toolchain/gcc-arm-none-eabi-4_9-2015q3/bin
-install: make
-before_script: cd $TRAVIS_BUILD_DIR
+- cd $TRAVIS_BUILD_DIR
 script: make
 notifications:
   slack:
