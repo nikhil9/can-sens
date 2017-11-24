@@ -89,6 +89,9 @@ PROJECT = can_sens
 CHIBIOS = modules/ChibiOS
 SRC_DIR = src
 BRD_CNFG_DIR = src/board_config
+UTIL_DIR = src/util
+
+
 # Startup files.
 include $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC/mk/startup_stm32f4xx.mk
 # HAL-OSAL files (optional).
@@ -101,6 +104,7 @@ include $(CHIBIOS)/os/rt/rt.mk
 include $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/port_v7m.mk
 include $(CHIBIOS)/os/various/cpp_wrappers/chcpp.mk
 include $(SRC_DIR)/src_dir.mk
+include $(UTIL_DIR)/util.mk
 
 # Define linker script file here
 LDSCRIPT= $(STARTUPLD)/STM32F407xG.ld
@@ -115,10 +119,12 @@ CSRC = $(STARTUPSRC) \
        $(PLATFORMSRC) \
        $(BOARDSRC) \
        $(TESTSRC)
+       
 
 # C++ sources that can be compiled in ARM or THUMB mode depending on the global
 # setting.
 CPPSRC = $(CHCPPSRC) \
+		 $(UTILSRC) \
          $(SRC_DSRC)
 
 # C sources to be compiled in ARM mode regardless of the global setting.
@@ -149,6 +155,7 @@ INCDIR = $(CHIBIOS)/os/license \
 	 $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
          $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) \
          $(CHCPPINC) $(CHIBIOS)/os/various \
+         $(UTILINC) \
          $(SRC_DINC)
 
 #
