@@ -103,8 +103,15 @@ include $(CHIBIOS)/os/hal/osal/rt/osal.mk
 include $(CHIBIOS)/os/rt/rt.mk
 include $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/port_v7m.mk
 include $(CHIBIOS)/os/various/cpp_wrappers/chcpp.mk
+include $(CHIBIOS)/test/lib/test.mk
+include $(CHIBIOS)/test/rt/rt_test.mk
+include $(CHIBIOS)/test/oslib/oslib_test.mk
+include $(CHIBIOS)/os/hal/lib/streams/streams.mk
+include $(CHIBIOS)/os/various/shell/shell.mk
 include $(SRC_DIR)/src_dir.mk
 include $(UTIL_DIR)/util.mk
+
+
 
 # Define linker script file here
 LDSCRIPT= $(STARTUPLD)/STM32F407xG.ld
@@ -118,7 +125,9 @@ CSRC = $(STARTUPSRC) \
        $(HALSRC) \
        $(PLATFORMSRC) \
        $(BOARDSRC) \
-       $(TESTSRC)
+       $(TESTSRC) \
+       $(STREAMSSRC) \
+       $(SHELLSRC) \
        
 
 # C++ sources that can be compiled in ARM or THUMB mode depending on the global
@@ -155,6 +164,7 @@ INCDIR = $(CHIBIOS)/os/license \
 	 $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
          $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) \
          $(CHCPPINC) $(CHIBIOS)/os/various \
+         $(STREAMSINC) $(SHELLINC) \
          $(UTILINC) \
          $(SRC_DINC)
 

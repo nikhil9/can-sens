@@ -16,6 +16,8 @@
 
 #include "hal.h"
 
+#include "custom_util.h"
+
 /* Virtual serial port over USB.*/
 SerialUSBDriver SDU1;
 
@@ -337,3 +339,16 @@ const SerialUSBConfig serusbcfg = {
   USBD1_DATA_AVAILABLE_EP,
   USBD1_INTERRUPT_REQUEST_EP
 };
+
+void start_usb(void){
+
+	  sduObjectInit(&SDU1);
+	  sduStart(&SDU1, &serusbcfg);
+
+	  usbDisconnectBus(serusbcfg.usbp);
+	  delay(1000);
+	  usbStart(serusbcfg.usbp, &usbcfg);
+	  usbConnectBus(serusbcfg.usbp);
+
+
+}
