@@ -1,16 +1,16 @@
 language: cpp
 sudo: false
 before_install:
+- sudo apt-get install lib32z1
 - cd ~
 - mkdir toolchain
+- cd toolchain
 - wget http://firmware.ardupilot.org/Tools/PX4-tools/gcc-arm-none-eabi-4_9-2015q3-20150921-linux.tar.bz2
-- tar -xf gcc-arm-none-eabi-4_9-2015q3-20150921-linux.tar.bz2 -C toolchain
-- cd toolchain/gcc-arm-none-eabi-4_9-2015q3/bin
-- ls
-- ln -s ~/toolchain/gcc-arm-none-eabi-4_9-2015q3/bin/arm-none-eabi-gcc $TRAVIS_BUILD_DIR
+- tar xjf gcc-arm-none-eabi-4_9-2015q3-20150921-linux.tar.bz2
+- cd ~
 env:
   global:
-    - PATH=$PATH:~/toolchain/gcc-arm-none-eabi-4_9-2015q3/bin
+    - PATH=~/toolchain/gcc-arm-none-eabi-4_9-2015q3/bin:$PATH
 script: 
 - cd $TRAVIS_BUILD_DIR
 - ls
