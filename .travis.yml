@@ -11,6 +11,7 @@ env:
 script: 
 - which arm-none-eabi-gcc
 - cd $TRAVIS_BUILD_DIR
+- which arm-none-eabi-gcc
 - make
 notifications:
   slack:
