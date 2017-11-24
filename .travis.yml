@@ -9,9 +9,9 @@ env:
   global:
     - PATH=$PATH:~/toolchain/gcc-arm-none-eabi-4_9-2015q3/bin
 script: 
-- which arm-none-eabi-gcc
 - cd $TRAVIS_BUILD_DIR
 - which arm-none-eabi-gcc
+- arm-none-eabi-gcc --version
 - make
 notifications:
   slack:
