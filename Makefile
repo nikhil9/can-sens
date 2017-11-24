@@ -90,7 +90,7 @@ CHIBIOS = modules/ChibiOS
 SRC_DIR = src
 BRD_CNFG_DIR = src/board_config
 UTIL_DIR = src/util
-
+BLD = tools
 
 # Startup files.
 include $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC/mk/startup_stm32f4xx.mk
@@ -114,7 +114,7 @@ include $(UTIL_DIR)/util.mk
 
 
 # Define linker script file here
-LDSCRIPT= $(STARTUPLD)/STM32F407xG.ld
+LDSCRIPT= $(BRD_CNFG_DIR)/STM32F429xI.ld
 
 # C sources that can be compiled in ARM or THUMB mode depending on the global
 # setting.
@@ -185,8 +185,8 @@ CPPC = $(TRGT)g++
 # Enable loading with g++ only if you need C++ runtime support.
 # NOTE: You can use C++ even without C++ support if you are careful. C++
 #       runtime support makes code size explode.
-LD   = $(TRGT)gcc
-#LD   = $(TRGT)g++
+#LD   = $(TRGT)gcc
+LD   = $(TRGT)g++
 CP   = $(TRGT)objcopy
 AS   = $(TRGT)gcc -x assembler-with-cpp
 AR   = $(TRGT)ar
@@ -236,3 +236,6 @@ ULIBS =
 
 RULESPATH = $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC
 include $(RULESPATH)/rules.mk
+
+upload: all
+	@bash ./$(BLD)/upload.sh

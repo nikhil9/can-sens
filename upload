@@ -1,10 +1,12 @@
 #!/bin/bash
 
-
-BASEDIR=`pwd`
+EXEDIR=`pwd`
+BASEDIR=$(dirname $0)
+echo $BASEDIR/build
 
 SYSTYPE=`uname -s`
 
+make
 sleep 1
 echo ""
 echo "creating .px4"
