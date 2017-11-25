@@ -2,7 +2,7 @@
 #include "hal.h"
 
 #include "custom_util.h"
-
+#include "drv_hmc.h"
 
 static THD_WORKING_AREA(waThread1, 128);
 static THD_FUNCTION(Thread1, arg) {
@@ -27,6 +27,8 @@ int main(void) {
 					NORMALPRIO + 10, Thread1, NULL);
 
 	start_custom_shell();
+
+	start_hmc();
 
 	while (true) {
 
