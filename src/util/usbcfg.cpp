@@ -15,7 +15,6 @@
 */
 
 #include "hal.h"
-
 #include "custom_util.h"
 
 /* Virtual serial port over USB.*/

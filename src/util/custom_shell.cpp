@@ -9,7 +9,7 @@
 #define SHELL_WA_SIZE   THD_WORKING_AREA_SIZE(2048)
 
 static const ShellCommand commands[] = {
-  {NULL, NULL}
+		{NULL, NULL}
 };
 
 static const ShellConfig shell_cfg1 = {
@@ -44,5 +44,3 @@ void start_custom_shell(void){
 	chThdCreateStatic(waThread2, sizeof(waThread2),
 					NORMALPRIO + 10, Thread2, NULL);
 }
-
-
