@@ -1,6 +1,7 @@
 [submodule "modules/ChibiOS"]
 	path = modules/ChibiOS
 	url = https://github.com/nikhil9/ChibiOS.git
+	branch = can-sens
 [submodule "modules/uavcan"]
 	path = modules/uavcan
 	url = https://github.com/nikhil9/uavcan.git
