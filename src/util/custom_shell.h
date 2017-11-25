@@ -6,5 +6,6 @@
 #include "hal.h"
 
 void start_custom_shell(void);
+void start_usb(void);
 
 #endif /* SRC_UTIL_CUSTOM_SHELL_H_ */

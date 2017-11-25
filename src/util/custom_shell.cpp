@@ -25,8 +25,6 @@ static THD_FUNCTION(Thread2, arg) {
 
 	shellInit();
 
-	start_usb();
-
 	delay(20);
 
 	while(true){
@@ -43,4 +41,8 @@ static THD_FUNCTION(Thread2, arg) {
 void start_custom_shell(void){
 	chThdCreateStatic(waThread2, sizeof(waThread2),
 					NORMALPRIO + 10, Thread2, NULL);
+}
+
+void start_usb(void){
+	start_usb_cfg();
 }

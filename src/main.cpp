@@ -26,6 +26,10 @@ int main(void) {
 	chThdCreateStatic(waThread1, sizeof(waThread1),
 					NORMALPRIO + 10, Thread1, NULL);
 
+	start_usb();
+
+	delay(1000);
+
 	start_custom_shell();
 
 	start_hmc();

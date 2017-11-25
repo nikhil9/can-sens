@@ -18,6 +18,12 @@ public:
 
 	int16_t magx_raw, magy_raw, magz_raw;
 
+	bool health;
+
+private:
+	bool _write_reg(uint8_t address, uint8_t value);
+
+
 
 };
 

@@ -8,8 +8,10 @@
 
 #include "chprintf.h"
 
+extern SerialUSBDriver SDU1;
+
 #define delay(x) chThdSleepMilliseconds(x)
 
-#define debug(x, ...) chprintf((BaseSequentialStream *)&SDU1, x, ##__VA_ARGS__)
+#define debug(x, ...) chprintf((BaseSequentialStream *)&SDU1, x "\n\r", ##__VA_ARGS__)
 
 #endif /* SRC_UTIL_CUSTOM_UTIL_H_ */

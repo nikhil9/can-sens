@@ -339,7 +339,7 @@ const SerialUSBConfig serusbcfg = {
   USBD1_INTERRUPT_REQUEST_EP
 };
 
-void start_usb(void){
+void start_usb_cfg(void){
 
 	  sduObjectInit(&SDU1);
 	  sduStart(&SDU1, &serusbcfg);
