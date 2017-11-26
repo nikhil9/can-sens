@@ -16,14 +16,15 @@ public:
 
 	float magx, magy, magz;
 
-	int16_t magx_raw, magy_raw, magz_raw;
-
-	bool health;
+	int16_t _mag_x, _mag_y, _mag_z;
 
 private:
+
+	bool _health;
+
 	bool _write_reg(uint8_t address, uint8_t value);
 
-
+	void _read_raw(void);
 
 };
 

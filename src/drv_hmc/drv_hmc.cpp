@@ -1,4 +1,9 @@
 
+
+/**
+ * Modified from Ardupilot AP_Compass_HMC5843 driver
+ */
+
 #include "custom_util.h"
 #include "drv_hmc.h"
 
@@ -38,15 +43,18 @@ static const I2CConfig i2cfg1 = {
 	FAST_DUTY_CYCLE_2,
 };
 
-static THD_WORKING_AREA(waThread3, 128);
+static THD_WORKING_AREA(waThread3, 4096);
 static THD_FUNCTION(Thread3, arg) {
+
+	hmc.init();
 
 	(void)arg;
 	chRegSetThreadName("drv_hmc");
 	while (true) {
 
+		hmc.update();
 
-		delay(20);
+		delay(200);
 	}
 }
 
@@ -56,17 +64,65 @@ void HMC::init(void){
 	debug("I2CD1 Started");
 	delay(100);
 
-	health = _write_reg(ConfigRegA, SampleAveraging_8<<5 | DataOutputRate_75HZ<<2 | NormalOperation);
-	health = _write_reg(0x02, 0x00);
+	_health = _write_reg(ConfigRegA, SampleAveraging_8<<5 | DataOutputRate_75HZ<<2 | NormalOperation);
+	_health = _write_reg(0x02, 0x00);
 
-	debug("health %x", health);
+	debug("HMC: health is %s", (_health == true)? "good":"bad");
 
+}
+
+void HMC::_read_raw(void){
+
+	msg_t status = MSG_OK;
+
+    uint8_t buff[6];
+
+	uint8_t txbuf[2];
+
+	txbuf[0] = 0x03;
+
+	if(_write_reg(ModeRegister, SingleConversion)){
+
+		i2cAcquireBus(&I2C_HMC);
+		status = i2cMasterTransmit(&I2C_HMC, COMPASS_ADDRESS, txbuf, 1, buff, 6);
+		i2cReleaseBus(&I2C_HMC);
+
+		if(status != MSG_OK){
+			debug("HMC: _read_raw failure at %u", txbuf);
+			_health = false;
+
+		}
+
+	}else{
+		debug("HMC: _read_raw single conversion failed");
+	}
+
+    int16_t rx, ry, rz;
+    rx = (((int16_t)buff[0]) << 8) | buff[1];
+    rz = (((int16_t)buff[2]) << 8) | buff[3];
+    ry = (((int16_t)buff[4]) << 8) | buff[5];
+
+    if (rx == -4096 || ry == -4096 || rz == -4096) {
+
+    	debug("HMC: read raw no valid data");
+        _health = false;
+    }
+
+    _mag_x =  rx;
+    _mag_y =  ry;
+    _mag_z =  rz;
+
+//    debug("HMC: raw data %d, %d, %d", _mag_x, _mag_y, _mag_z);
 }
 
 void HMC::update(void){
 
-	if(!health)return;
+	if(!_health){
+		debug("HMC: update health is %s", (_health == true)? "good":"bad");
+		return;
+	}
 
+	_read_raw();
 
 }
 
@@ -91,8 +147,6 @@ bool HMC::_write_reg(uint8_t address, uint8_t value){
 
 
 void start_hmc(void){
-
-	hmc.init();
 
 	chThdCreateStatic(waThread3, sizeof(waThread3),
 					NORMALPRIO + 20, Thread3, NULL);
